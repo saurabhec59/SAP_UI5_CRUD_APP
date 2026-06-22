@@ -20,7 +20,12 @@ sap.ui.define([
                         name: "Priya",
                         age: 28
                     }
-                ]
+                ],
+
+                // updating model to demonstrate two way binding
+                employeeForm: {
+                    name: "julia"
+                }
             }
             var model = new JSONModel(data);
             this.getView().setModel(model);

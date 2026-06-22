@@ -23,6 +23,14 @@
                     type: by default list items are non interactive, so to make them we need this property set to active.
                  -->
             </List>
+
+            <!-- Two-way binding demonstration 
+            here we are binding input and text control to the same model property, to demostrate two way binding.
+            -->
+            <HBox >
+                <Input value="{/employeeForm/name}"> </Input>
+                <Text text="{/employeeForm/name}"></Text>
+            </HBox>
         </content>
     </Page>
 </mvc:View>
