@@ -17,7 +17,7 @@
                 -->
             </HBox>
             <List items="{/employees}" >
-                <StandardListItem title="{name}" info="{age}" press="onEmpListItemPress2" type="Active"></StandardListItem>
+                <StandardListItem title="{name}" info="{age}" press="onEmpListItemPress3" type="Active"></StandardListItem>
                 <!--   
                     press: just like buttons, this is the same even used for list items
                     type: by default list items are non interactive, so to make them we need this property set to active.
