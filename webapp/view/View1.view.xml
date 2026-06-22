@@ -1,0 +1,28 @@
+<mvc:View controllerName="projectlearning.controller.View1" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Page>
+
+        <content>
+
+            <Button text="Testing button" type="Success" press="onSubmit"></Button>
+
+            <HBox >
+                <Input placeholder="Enter name" id="empNameInput"></Input>
+                <Input placeholder="Enter age" id="empAgeInput"></Input>
+                <Button text="Add" press="onAddEmpPress"></Button>
+                <!-- 
+                    here the requirement was to take input of name and age and after clicking add button it should be added to model.
+                    so we created 2 input fields with id to take name and age input.
+                    also we created add button and added event handler for press event. 
+                    fetching inputs and storing them in model is done in onAddEmpPress method.
+                -->
+            </HBox>
+            <List items="{/employees}" >
+                <StandardListItem title="{name}" info="{age}" press="onEmpListItemPress2" type="Active"></StandardListItem>
+                <!--   
+                    press: just like buttons, this is the same even used for list items
+                    type: by default list items are non interactive, so to make them we need this property set to active.
+                 -->
+            </List>
+        </content>
+    </Page>
+</mvc:View>

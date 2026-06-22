@@ -1,0 +1,2 @@
+<mvc:View controllerName="projectlearning.controller.View1" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+</mvc:View>
