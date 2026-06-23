@@ -94,6 +94,20 @@ sap.ui.define([
 
         },
 
+        onNavigateToVew2: function(){
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("RouteView2");
+            // this.getOwnerComponent() ==> will return the top level component object of the app, here it is Component.js
+            // because Component.js is the top level component which initializes the router.
+            // .getRouter() ==> will return the router object which is initialized in Component.js
+            // .navTo("RouteView2") ==> will navigate to the route which is defined in manifest.json with name "RouteView2"
+        },
+
+        onNavigateToView1: function(){
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("RouteView1");
+        }
+
 
         
     })

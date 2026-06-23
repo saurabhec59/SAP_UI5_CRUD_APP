@@ -31,6 +31,10 @@
                 <Input value="{/employeeForm/name}"> </Input>
                 <Text text="{/employeeForm/name}"></Text>
             </HBox>
+
+            <HBox >
+                <Button text="Go to View2" press="onNavigateToVew2"></Button>
+            </HBox>
         </content>
     </Page>
 </mvc:View>
