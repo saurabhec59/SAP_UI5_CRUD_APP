@@ -1,4 +1,4 @@
-<mvc:View controllerName="projectlearning.controller.View1" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+<mvc:View controllerName="projectlearning.controller.View2" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
     <Page>
         <content>
             <Text text="View 2"></Text>

@@ -9,14 +9,17 @@ sap.ui.define([
             var data = { 
                 employees: [
                     {
+                        id: 1,
                         name: "Aman",
                         age: 25
                     },
                     {
+                        id: 2,
                         name: "Rahul",
                         age: 30
                     },
                     {
+                        id: 3,
                         name: "Priya",
                         age: 28
                     }
@@ -75,6 +78,21 @@ sap.ui.define([
             // but both needs tha path till the "age" property of clicked emp and that
             // using oEvent.getSource().getBindingContext().getPath()+"/age" we can get path till age of clicked emp.
             // using getView().getModel().getProperty() or setProperty() we can fetch or set the value.
+        },
+
+        onEmpListItemPress4: function(oEvent){
+            var data = oEvent.getSource().getBindingContext().getObject();
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo(
+                "RouteView2",{
+                    id: data.id
+            })
+            // here instead of passing just "name" (RouteView2) for the route, we are passing an additional parameter "id" of the clicked emp.
+            // and in manifest.json I changed route pattern to "View2/{id}" so that we can pass the id of clicked emp to view2 and in view2 we can get the id of clicked emp and then fetch the data of that emp from model and display it in view2.
+            // but notice onNavigateToVew2 handler of button is now broken because in that handler we are still passing the same name "RouteView2" which is fine but 
+            // route pattern in now expecting an additional mandatory parameter "id" which is not being passed in 'onNavigateToVew2'.
+            // so eventually onNavigateToVew2 handler is able to find the route with name but it is not able to resolve it.
+            // because with name you find the route but the next step is building url which is done according to pattern and this is where 'onNavigateToVew2' is failing.
         },
 
         // Create
