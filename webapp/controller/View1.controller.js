@@ -20,12 +20,18 @@ sap.ui.define([
                         name: "Priya",
                         age: 28
                     }
-                ]
+                ],
+
+                // updating model to demonstrate two way binding
+                employeeForm: {
+                    name: "julia"
+                }
             }
             var model = new JSONModel(data);
             this.getView().setModel(model);
         },
 
+        // Read
         onEmpListItemPress: function(oEvent){
             var data = oEvent.getSource().getBindingContext().getObject();
             // getSource() will return the object of control which fired this event, here it is list item.
@@ -35,6 +41,7 @@ sap.ui.define([
             MessageToast.show("Name: " + data.name + "Age: " + data.age);
         },
 
+        // Delete
         // modifying the press function of list item to delete the list item after clicking on it.
         onEmpListItemPress2: function(oEvent){
             var itemIndex = oEvent.getSource().getBindingContext().getPath().split("/").pop();
@@ -54,6 +61,23 @@ sap.ui.define([
             this.getView().getModel().setProperty("/employees", empArray);
         },
 
+        // update
+        // Requirement is to increate the age of emp by 1 on clicking on list i
+        onEmpListItemPress3: function(oEvent){
+            // getting path till age of clicked emp
+            var path = oEvent.getSource().getBindingContext().getPath() + "/age";
+            // getting age value
+            var age = this.getView().getModel().getProperty(path);
+            // updating age value by 1
+            this.getView().getModel().setProperty(path, age + 1);
+            // using getProperty() we can get age value of clicked employee
+            // using setProperty() we can set the new value of age to model
+            // but both needs tha path till the "age" property of clicked emp and that
+            // using oEvent.getSource().getBindingContext().getPath()+"/age" we can get path till age of clicked emp.
+            // using getView().getModel().getProperty() or setProperty() we can fetch or set the value.
+        },
+
+        // Create
         onAddEmpPress: function(){
             var name = this.getView().byId("empNameInput").getValue();
             var age = this.getView().byId("empAgeInput").getValue();
@@ -69,6 +93,20 @@ sap.ui.define([
             // so in sort, get the existing array from model, push the new array and set the updated array back to original model.
 
         },
+
+        onNavigateToVew2: function(){
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("RouteView2");
+            // this.getOwnerComponent() ==> will return the top level component object of the app, here it is Component.js
+            // because Component.js is the top level component which initializes the router.
+            // .getRouter() ==> will return the router object which is initialized in Component.js
+            // .navTo("RouteView2") ==> will navigate to the route which is defined in manifest.json with name "RouteView2"
+        },
+
+        onNavigateToView1: function(){
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("RouteView1");
+        }
 
 
         

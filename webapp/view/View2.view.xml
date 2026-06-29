@@ -1,11 +1,9 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="projectlearning.controller.view1">
-    <Page title="view2" id="page2">
+<mvc:View controllerName="projectlearning.controller.View1" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Page>
         <content>
-            <HBox >
-                <Text text="this is page2"></Text>
-                <Button text="done" type="Success"></Button>
-            </HBox>
+            <Text text="View 2"></Text>
+            <Button text="Go back to View1" press="onNavigateToView1"></Button>
         </content>
-
     </Page>
+
 </mvc:View>
