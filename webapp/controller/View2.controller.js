@@ -25,8 +25,19 @@ sap.ui.define([
             while(i < empData.length){
                 if(empData[i].id === Number(searchId)){
                     // creating and assigning a local named model to view2 containing only one array element with matched id
-                    var localView2Model = new JSONModel(empData[i]);
-                    this.getView().setModel(localView2Model, "localView2Model");
+                    //var localView2Model = new JSONModel(empData[i]);
+                    // this.getView().setModel(localView2Model, "localView2Model");
+
+                    // Another approach without creating a new model, instead we will use bindingContext.
+
+                    // We want this view to be bound to the selected employee object from empModel, not to the entire model.
+                    // A binding path alone ("/employees/1") is not enough. SAPUI5 also needs to know which model that path belongs to.
+                    // createBindingContext() creates a BindingContext object that combines:
+                    // - the model
+                    // - the path within that model
+                    // setBindingContext() then assigns that context to the View.
+                    var context = this.getOwnerComponent().getModel("empModel").createBindingContext("/employees/" + i);
+                    this.getView().setBindingContext(context, "empModel");
                     break;
                 }
                 i++;
