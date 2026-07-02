@@ -82,7 +82,7 @@
         },
         {
           "name": "RouteView2",
-          "pattern": "View2/{id}",
+          "pattern": "View2",
           "target": [
             "TargetView2"
           ]

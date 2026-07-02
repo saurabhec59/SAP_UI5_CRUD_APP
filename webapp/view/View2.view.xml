@@ -1,21 +1,8 @@
-<mvc:View controllerName="projectlearning.controller.View2" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Page title="View 2 Employee Details">
-        <content>           
-            <!-- creating fields to display the fetched data from empModel (of Component), stored in local model (named model as "localView2Model") of this view.
-                this view has the inherited model from component level and as well as locally assigned named model as well, that's why we need to specify the model name in binding path of controls of this view.
-            -->
-            <VBox >
-                <Text text="ID"></Text>
-                <Input value="{localView2Model>/id}"></Input>
-                <Text text="Name"></Text>
-                <Input value="{localView2Model>/name}"></Input>
-                <Text text="Age"></Text>
-                <Input value="{localView2Model>/age}"></Input>
-            </VBox>
-
-            <HBox>
-                <Button text="Go to View1" press="onNavigateToView1"></Button>
-            </HBox>
+<mvc:View controllerName="projectlearning.controller.View1" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Page>
+        <content>
+            <Text text="View 2"></Text>
+            <Button text="Go back to View1" press="onNavigateToView1"></Button>
         </content>
     </Page>
 
