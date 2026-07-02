@@ -1,8 +1,21 @@
-<mvc:View controllerName="projectlearning.controller.View1" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Page>
-        <content>
-            <Text text="View 2"></Text>
-            <Button text="Go back to View1" press="onNavigateToView1"></Button>
+<mvc:View controllerName="projectlearning.controller.View2" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Page title="View 2 Employee Details">
+        <content>           
+            <!-- Now the local created model is removed and a binding context is set to the this view.
+                that binding context object contains path and reference to the named model "empModel" so here contols bindings are updated accordingly.
+            -->
+            <VBox >
+                <Text text="ID"></Text>
+                <Input value="{empModel>id}"></Input>
+                <Text text="Name"></Text>
+                <Input value="{empModel>name}"></Input>
+                <Text text="Age"></Text>
+                <Input value="{empModel>age}"></Input>
+            </VBox>
+
+            <HBox>
+                <Button text="Go to View1" press="onNavigateToView1"></Button>
+            </HBox>
         </content>
     </Page>
 

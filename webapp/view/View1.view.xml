@@ -16,8 +16,13 @@
                     fetching inputs and storing them in model is done in onAddEmpPress method.
                 -->
             </HBox>
-            <List items="{/employees}" >
-                <StandardListItem title="{name}" info="{age}" press="onEmpListItemPress3" type="Active"></StandardListItem>
+            <!--  Changing the binding path of controlls of this view because now the local model is moved to component level and there were multiple models in 
+                the Component.js file, so we defined our moved model as a named/aliased model there as "this.setModel(model, "empModel")"
+                Remember: now since this View1 have no local model so it will inherit the model from component level and component level have multiple models
+                means this view is inheriting multiple models as well that's why bindings needs to be specified.
+            -->
+            <List items="{empModel>/employees}" > 
+                <StandardListItem title="{empModel>name}" info="{empModel>age}" press="onEmpListItemPress4" type="Active"></StandardListItem>
                 <!--   
                     press: just like buttons, this is the same even used for list items
                     type: by default list items are non interactive, so to make them we need this property set to active.
@@ -28,8 +33,8 @@
             here we are binding input and text control to the same model property, to demostrate two way binding.
             -->
             <HBox >
-                <Input value="{/employeeForm/name}"> </Input>
-                <Text text="{/employeeForm/name}"></Text>
+                <Input value="{empModel>/employeeForm/name}"> </Input>
+                <Text text="{empModel>/employeeForm/name}"></Text>
             </HBox>
 
             <HBox >
