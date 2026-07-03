@@ -47,6 +47,21 @@ sap.ui.define([
             // attachPatternMatched() job is to register a callback function like 'onRouteMatched' that should be called whenever the 'patternMatched' event is fired.
             // getParameter() => when patternMatched event contains the info about the parameters passed in the route via navTo() and getParameter("arguments") will return the object of all the parameters passed in the route. 
             MessageToast.show("Route matched with id: " + oEvent.getParameter("arguments").id);
+            // this.setStatus();
+        },
+
+        // this function's call is commented because this function is created to see without expression binding
+        setStatus: function(){
+            var status;
+            var age = this.getView().getBindingContext("empModel").getProperty("age");
+            if(age < 18){
+                status = "Minor";
+            }
+            else{
+                status = "Adult";
+            }
+            this.getView().byId("statusInput").setValue(status);
+            
         },
 
         onNavigateToView1: function(){

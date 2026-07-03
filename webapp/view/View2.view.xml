@@ -11,6 +11,11 @@
                 <Input value="{empModel>name}"></Input>
                 <Text text="Age"></Text>
                 <Input value="{empModel>age}"></Input>
+                <!-- using expression binding-->
+                <Text text="Status"></Text>
+                <Input id="statusInput" value="{= ${empModel>age} >= 18 ? 'Adult' : 'Minor'}"></Input>
+                <Text text="voting eligibilty"></Text>
+                <Button text="{= ${empModel>age} >= 18 ? 'Yes' : 'No' }" type="{= ${empModel>age} >= 18 ? 'Accept' : 'Reject' }" enabled="false"></Button>
             </VBox>
 
             <HBox>
