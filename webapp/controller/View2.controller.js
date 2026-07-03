@@ -1,10 +1,13 @@
 sap.ui.define([
     "projectlearning/controller/App.Controller",
     "sap/m/MessageToast",
-    "sap/ui/model/json/JSONModel"
-],function(Controller,MessageToast,JSONModel){
+    "sap/ui/model/json/JSONModel",
+    "projectlearning/model/formatter"
+],function(Controller,MessageToast,JSONModel,formatter){
     return Controller.extend("projectlearning.controller.View2",{
 
+        formatter: formatter,   // to expose formatter to view 
+        
         onInit: function(){
             this.getOwnerComponent().getRouter().getRoute("RouteView2").attachPatternMatched(this.onRouteMatched, this);
             // this.getOwnerComponent().getRouter() ==> will return the router object of the app.
