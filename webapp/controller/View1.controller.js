@@ -93,6 +93,55 @@ sap.ui.define([
 
         },
 
+        /* function to add fragment having root control VBox to view1
+        significance of " var that = this; "  <<= here "this" is the object of controller and we are storing it in a local variable named "that" 
+        reason : 
+        1st inside the callback function of loadFragment() the "this" will not refer to controller object so keeping that reference in 'that' var will 
+        help to get the view as "that.getView()" inside callback of loadFragment().
+        2nd is the returned object of root control of fragment via loadFragment() is also available withing the callback scope only, 
+        so later when this returned/ loaded fragment object is needed to remove it from the view than this will not be available in the controller object 'this'.
+        so when we does "that.AddEmpVBox = oVBox;" we are storing the returned fragment object in controller object so that it can be used later to remove it from view.
+        */
+        onAddEmpPress1: function(){
+            var that = this;
+            this.loadFragment({
+                name: "projectlearning.view.fragments.AddEmpVBox"
+            }).then(function(oVBox){
+                that.AddEmpVBox = oVBox; // storing returned fragment object in controller object so that it do not get lost after callback scope.
+                that.getView().byId("addEmpVBox").addItem(oVBox);
+            })
+        },
+
+        // function to add fragment having root control Dialog to view1
+        onAddEmpPress2: function(){
+            var that = this;
+            this.loadFragment({
+                name: "projectlearning.view.fragments.AddEmpDialog"
+            }).then(function(oDialog){
+                that.AddEmpDialog = oDialog;
+                oDialog.open();
+            })
+        },
+
+        onAddEmpDialogCancelPress: function(oEvent){
+            this.AddEmpDialog.close();
+            // oEvent.getSource().getParent().getParent().close();
+            /* this is another way to close the dialog. Lets decode it:
+            oEvent.getSource() => will return the object of that cancle button which fired this event. (see in the AddEmpDialog.fragment.xml)
+            .getParent() => will return the parent of cancle button which is HBox 
+            next .getParent() => will return the parent of HBox which is 'Dialog' itself and since it is root control of fragment which was returned by 
+            loadFragment() so we can call 'close()' method on it.
+            But still storing the returned object of fragment is still better because .getParent() may be fragile if fragment structure is changed in future.
+            */
+            
+        },
+
+        onAddEmpVBoxCancelPress: function(oEvent){
+            this.getView().byId("addEmpVBox").removeItem(this.AddEmpVBox);
+            // this.getView().byId("addEmpVBox").removeItem(oEvent.getSource().getParent().getParent());
+            // here also this .getParent() will work. see explanation in 'onAddEmpDialogCancelPress' function.
+        },
+
         onNavigateToVew2: function(){
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteView2");
