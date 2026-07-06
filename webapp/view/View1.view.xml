@@ -5,17 +5,6 @@
 
             <Button text="Testing button" type="Success" press="onSubmit"></Button>
 
-            <HBox >
-                <Input placeholder="Enter name" id="empNameInput"></Input>
-                <Input placeholder="Enter age" id="empAgeInput"></Input>
-                <Button text="Add" press="onAddEmpPress"></Button>
-                <!-- 
-                    here the requirement was to take input of name and age and after clicking add button it should be added to model.
-                    so we created 2 input fields with id to take name and age input.
-                    also we created add button and added event handler for press event. 
-                    fetching inputs and storing them in model is done in onAddEmpPress method.
-                -->
-            </HBox>
             <!--  Changing the binding path of controlls of this view because now the local model is moved to component level and there were multiple models in 
                 the Component.js file, so we defined our moved model as a named/aliased model there as "this.setModel(model, "empModel")"
                 Remember: now since this View1 have no local model so it will inherit the model from component level and component level have multiple models
@@ -36,6 +25,13 @@
                 <Input value="{empModel>/employeeForm/name}"> </Input>
                 <Text text="{empModel>/employeeForm/name}"></Text>
             </HBox>
+            
+            <VBox id="addEmpVBox">
+                <HBox>
+                    <Button text="Add Employee via Dialog" press="onAddEmpPress2"></Button>
+                    <Button text="Add Employee via VBox" press="onAddEmpPress1"></Button>
+                </HBox>
+            </VBox>
 
             <HBox >
                 <Button text="Go to View2" press="onNavigateToVew2"></Button>

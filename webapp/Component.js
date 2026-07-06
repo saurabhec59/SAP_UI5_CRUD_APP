@@ -37,6 +37,11 @@ sap.ui.define([
                         id: 3,
                         name: "Priya",
                         age: 28
+                    },
+                    {
+                        id: 4,
+                        name: "zara",
+                        age:17
                     }
                 ],
 

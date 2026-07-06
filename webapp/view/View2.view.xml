@@ -10,7 +10,19 @@
                 <Text text="Name"></Text>
                 <Input value="{empModel>name}"></Input>
                 <Text text="Age"></Text>
-                <Input value="{empModel>age}"></Input>
+                <Input value="{ path: 'empModel>age', formatter: '.formatter.formatAge'}"></Input>
+                <!-- using expression binding-->
+                <Text text="Status"></Text>
+                <Input id="statusInput" value="{= ${empModel>age} >= 18 ? 'Adult' : 'Minor'}"></Input>
+                <Text text="Voting eligibilty"></Text>
+                <Button text="{= ${empModel>age} >= 18 ? 'Yes' : 'No' }" type="{= ${empModel>age} >= 18 ? 'Accept' : 'Reject' }" enabled="false"></Button>
+                <!-- 
+                    in binding expression anyting inside single quotes is treated as string that's why here for 'visible' property which expects boolean true, false values so not using quotes.
+                    formatter: '.formatter.formatInputFieldForMinor'    <<== this line says Start from the controller instance of this view, then access its property formatter, then call formatInputFieldForMinor
+                    input field's are editable and support two way binding, so if user changes the value of input field then it will be reflected in the model as well and due to this live change
+                    the formatter throws error so kept it uneditable.
+                -->
+                <Input value="{path: 'empModel>age', formatter: '.formatter.formatInputFieldForMinor'}" visible="{= ${empModel>age} >= 18 ? false : true}" editable="false"></Input>
             </VBox>
 
             <HBox>
