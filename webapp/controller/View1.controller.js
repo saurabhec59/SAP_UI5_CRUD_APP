@@ -125,21 +125,42 @@ sap.ui.define([
                 name: "projectlearning.view.fragments.AddEmpVBox"
             }).then(function(oVBox){
                 that.AddEmpVBox = oVBox; // storing returned fragment object in controller object so that it do not get lost after callback scope.
+                /*  #1
+                    Now we wanted to add the entered values in fragment to our main employee model
+                    adding a local model to fragment object so that we can BIND the input fields of FRAGMENT to this model and then
+                    on clicking save button we can get the values from this model and add it to main employee model.
+                    *** And yes setModel() is applicable to the objects returned by loadFragment() if returned object is a sapui5 control.
+                    like VBox, Dialog, HBox etc. 
+                */
+                var data = {
+                    name: "",
+                    age: ""
+                }
+                var oModel = new JSONModel(data);
+                that.AddEmpVBox.setModel(oModel, "oModel");
                 that.getView().byId("addEmpVBox").addItem(oVBox);
             })
         },
 
         // function to add fragment having root control Dialog to view1
         onAddEmpPress2: function(){
-            // if(this.AddEmpDialog){
-            //     this.AddEmpDialog.open();
-            //     return;
-            // }
+            if(this.AddEmpDialog){
+                this.AddEmpDialog.open();
+                return;
+            }
             var that = this;
             this.loadFragment({
                 name: "projectlearning.view.fragments.AddEmpDialog"
             }).then(function(oDialog){
                 that.AddEmpDialog = oDialog;
+                // #1 , also notice fragment object is stored in controller object and the local oModel is set to that object 
+                //which makes both the fragment object and the local oModel available in this controller to be used.
+                var data = {
+                    name: "",
+                    age: ""
+                }
+                var oModel = new JSONModel(data);
+                that.AddEmpDialog.setModel(oModel, "oModel");
                 oDialog.open();
             })
         },
@@ -161,6 +182,44 @@ sap.ui.define([
             this.getView().byId("addEmpVBox").removeItem(this.AddEmpVBox);
             // this.getView().byId("addEmpVBox").removeItem(oEvent.getSource().getParent().getParent());
             // here also this .getParent() will work. see explanation in 'onAddEmpDialogCancelPress' function.
+        },
+
+        onAddEmpDialogSavePress: function(oEvent){
+            /* #2
+                getting existing array of employees from 'empModel' and pushing the new employee object to array build from 
+                the inputed values in fragment and updating the 'empModel'
+                notice here we can't do " this.getView().getModel("oModel").." because 'oModel' is locally set to fragment object,
+                but since fragment object is stored in controller object so we can do " this.AddEmpDialog.getModel("oModel").."
+            */
+            var empArray = this.getView().getModel("empModel").getProperty("/employees");
+            var length = empArray.length;
+            
+            empArray.push({id: length, 
+                name: this.AddEmpDialog.getModel("oModel").getProperty("/name"),
+                age: this.AddEmpDialog.getModel("oModel").getProperty("/age")
+            })
+
+            this.getView().getModel("empModel").setProperty("/employees", empArray);
+
+            // clearing the local model of fragment so that next time when fragment is opened the input fields are empty,
+            // and also closing after save.
+            this.AddEmpDialog.getModel("oModel").setData({ name: "", age: ""});
+            this.AddEmpDialog.close();
+        },
+
+        onAddEmpVBoxSavePress: function(oEvent){
+            // #2
+            var empArray = this.getView().getModel("empModel").getProperty("/employees");
+            empArray.push({
+                id: empArray.length,
+                name: this.AddEmpVBox.getModel("oModel").getProperty("/name"),
+                age: this.AddEmpVBox.getModel("oModel").getProperty("/age"),
+            })
+
+            this.getView().getModel("empModel").setProperty("/employees", empArray);
+            // clearing frag model and removing fragment from view after save
+            this.AddEmpVBox.getModel("oModel").setData({ name: "", age: ""});
+            this.getView().byId("addEmpVBox").removeItem(this.AddEmpVBox);
         },
 
         onNavigateToVew2: function(){
