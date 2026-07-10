@@ -10,12 +10,24 @@
                 Remember: now since this View1 have no local model so it will inherit the model from component level and component level have multiple models
                 means this view is inheriting multiple models as well that's why bindings needs to be specified.
             -->
-            <List items="{empModel>/employees}" > 
-                <StandardListItem title="{empModel>name}" info="{empModel>age}" press="onEmpListItemPress4" type="Active"></StandardListItem>
-                <!--   
-                    press: just like buttons, this is the same even used for list items
-                    type: by default list items are non interactive, so to make them we need this property set to active.
-                 -->
+            <!-- Removed the previous List declaration and added new List implementation with CustomListItem to add buttons to each List item
+                because StandardListItem does not support adding buttons to each list item,
+                previous implementation was:
+                <List items="{empModel>/employees}" > 
+                    <StandardListItem title="{empModel>name}" info="{empModel>age}" press="onEmpListItemPress4" type="Active"></StandardListItem>
+                </List>
+            -->
+
+            <List items="{empModel>/employees}">
+                <CustomListItem>
+                    <HBox justifyContent="SpaceBetween">
+                        <Text text="{empModel>name}"></Text>
+                        <HBox>
+                            <Button text="View" press="onEmpListItemPress4"></Button>
+                            <Button text="Delete" type="Reject" press="onEmpListItemDelete"></Button>
+                        </HBox>
+                    </HBox>
+                </CustomListItem>
             </List>
 
             <!-- Two-way binding demonstration 

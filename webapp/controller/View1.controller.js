@@ -1,8 +1,9 @@
 sap.ui.define([
     "projectlearning/controller/App.Controller",
     "sap/m/MessageToast",
+    "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel"
-], function(Controller,MessageToast,JSONModel){
+], function(Controller,MessageToast,MessageBox,JSONModel){
     return Controller.extend("projectlearning.controller.View1",{
 
         onInit: function(){
@@ -205,6 +206,7 @@ sap.ui.define([
             // and also closing after save.
             this.AddEmpDialog.getModel("oModel").setData({ name: "", age: ""});
             this.AddEmpDialog.close();
+            MessageToast.show("Employee added successfully");
         },
 
         onAddEmpVBoxSavePress: function(oEvent){
@@ -220,6 +222,7 @@ sap.ui.define([
             // clearing frag model and removing fragment from view after save
             this.AddEmpVBox.getModel("oModel").setData({ name: "", age: ""});
             this.getView().byId("addEmpVBox").removeItem(this.AddEmpVBox);
+            MessageToast.show("Employee added successfully");
         },
 
         onNavigateToVew2: function(){
@@ -234,8 +237,40 @@ sap.ui.define([
         onNavigateToView1: function(){
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteView1");
-        }
+        },
 
+        /*
+            see the notes to revise the MessageToast and MessageBox usage in this function.
+            Adding this function to delete the clicked emp object from array named 'employees' in the main 'empModel' model
+            do delete we need:
+            id of the clicked emp which we can get from oEvent.getSource()...
+            array of employees so that we can delete clicked object which can be get as this.getView().getModel("empModel")...
+            using loop we can iterate over the array and delete the found object from array using "splice(i, j)" where i is
+            index no and j is no of elements to be deleted
+        */
+        onEmpListItemDelete: function(oEvent){
+            // using that variable to store the reference of controller object because inside the callback function 
+            // of MessageBox.confirm() the "this" will not refer to controller object.
+            var that = this;
+            MessageBox.confirm("Are you sure you want to delete", {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: function(sAction){
+                    if(sAction === MessageBox.Action.YES){
+                        var empId = oEvent.getSource().getBindingContext("empModel").getObject().id;
+                        var empArray = that.getView().getModel("empModel").getProperty("/employees");
+                        for(var i=0; i < empArray.length; i++){
+                            if(empArray[i].id == empId){
+                                empArray.splice(i, 1);
+                                break;
+                            }
+                        }
+                        that.getView().getModel("empModel").setProperty("/employees", empArray);
+                        MessageToast.show("Employee deleted successfully");
+                    }
+                }
+            })
+                       
+        }
 
         
     })
