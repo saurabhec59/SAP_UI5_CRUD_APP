@@ -2,11 +2,11 @@
     <VBox>
         <Text text="This is fragment for adding new employee details"></Text>
         <Label text = "Name" labelFor = "inputName1"></Label>
-        <Input id = "inputName1" placeholder="Enter Name"></Input>
+        <Input id = "inputName1" placeholder="Enter Name" value="{oModel>/name}"></Input>
         <Label text = "Age" labelFor="inputAge1"></Label>
-        <Input id = "inputAge1" placeholder="Enter age"></Input>
+        <Input id = "inputAge1" placeholder="Enter age" value="{oModel>/age}"></Input>
         <HBox>
-            <Button text="Save" type="Emphasized"></Button>
+            <Button text="Save" type="Emphasized" press="onAddEmpVBoxSavePress"></Button>
             <Button text="Cancel" press="onAddEmpVBoxCancelPress"></Button>
         </HBox>
     </VBox>
